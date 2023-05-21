@@ -1,11 +1,9 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/services/theme.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'services/init.dart';
+import 'services/theme.dart';
 import 'views/screens/splash_screen/splash_screen.dart';
 
 void main() async {
@@ -15,8 +13,7 @@ void main() async {
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-final GlobalKey<ScaffoldMessengerState> snackBarKey =
-    GlobalKey<ScaffoldMessengerState>();
+final GlobalKey<ScaffoldMessengerState> snackBarKey = GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -26,35 +23,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-  initPlatForm() {
-    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-
-    OneSignal.shared.setAppId(""); //---------------------ADD ONESIGNAL APPID
-
-    OneSignal.shared.promptUserForPushNotificationPermission().then((accepted) {
-      if (kDebugMode) {
-        print("Accepted permission: $accepted");
-      }
-    });
-
-    OneSignal.shared.setNotificationWillShowInForegroundHandler(
-        (OSNotificationReceivedEvent event) {
-      event.complete(event.notification);
-    });
-
-    OneSignal.shared
-        .setNotificationOpenedHandler((OSNotificationOpenedResult result) {});
-
-    OneSignal.shared
-        .setPermissionObserver((OSPermissionStateChanges changes) {});
-
-    OneSignal.shared
-        .setSubscriptionObserver((OSSubscriptionStateChanges changes) {});
-
-    OneSignal.shared.setEmailSubscriptionObserver(
-        (OSEmailSubscriptionStateChanges emailChanges) {});
-  }
-
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -71,7 +39,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    initPlatForm();
   }
 
   @override

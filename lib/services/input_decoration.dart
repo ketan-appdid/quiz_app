@@ -16,8 +16,8 @@ class CustomDecoration {
     Widget? suffix,
     bool floating = false,
     Color borderColor = Colors.transparent,
-    Color bgColor = Colors.white,
-    double borderRadius = 12.0,
+    Color bgColor = Colors.transparent,
+    double borderRadius = 0.0,
     EdgeInsetsGeometry contentPadding = const EdgeInsets.fromLTRB(20, 10, 30, 13),
   }) {
     assert(prefixText == null || icon == null, "Strings are equal So this message is been displayed!!");

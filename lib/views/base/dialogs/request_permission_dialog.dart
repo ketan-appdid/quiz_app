@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/services/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../services/extensions.dart';
 import '../common_button.dart';
 import '../custom_image.dart';
 

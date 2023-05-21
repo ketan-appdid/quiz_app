@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_template/services/extensions.dart';
-import 'package:flutter_template/services/route_helper.dart';
-import 'package:flutter_template/views/base/image_gallery.dart';
 
 import '../../generated/assets.dart';
+import '../../services/extensions.dart';
+import '../../services/route_helper.dart';
+import 'image_gallery.dart';
 
 export '../../generated/assets.dart';
 

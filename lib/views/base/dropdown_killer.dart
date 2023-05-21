@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_template/views/base/custom_appbar.dart';
 
 import '../../services/input_decoration.dart';
+import 'custom_appbar.dart';
 
 ///TODO: Define toString() method for the model or Pass a data as List of String.
 class DropDownKiller<T> extends StatefulWidget {
