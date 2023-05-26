@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../controllers/auth_controller.dart';
-import '../../../services/input_decoration.dart';
 import '../../base/custom_image.dart';
+import 'form_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,7 +20,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer.run(() {
-      Future.delayed(const Duration(seconds: 2), () {});
+      Future.delayed(const Duration(seconds: 2), () {
+        setState(() {});
+      });
     });
   }
 
@@ -30,17 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    List<String> images = [
-      Assets.images1,
-      Assets.images2,
-      Assets.images3,
-      Assets.images5,
-      Assets.images7,
-      Assets.images9,
-      Assets.images11,
-      Assets.images12,
-    ];
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: GetBuilder<AuthController>(builder: (authController) {
         return SizedBox(
           width: size.width,
@@ -48,14 +41,20 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Stack(
             children: [
               PageView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: authController.pageController,
-                itemCount: images.length,
+                itemCount: authController.images.length,
                 onPageChanged: (va) {
                   log("${authController.pageController.page}");
                 },
                 itemBuilder: (BuildContext context, int index) {
+                  if (index == 1) {
+                    return const FormScreen();
+                  }
                   return CustomImage(
-                    path: images[index],
+                    path: authController.images[index],
+                    width: size.width,
+                    height: size.height,
                   );
                 },
               ),
@@ -67,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 if (authController.pageController.page == 4) const QuestionThree(),
               if (authController.pageController.hasClients)
                 if (authController.pageController.page == 5) const QuestionFour(),
-              if (authController.pageController.hasClients)
+              /*if (authController.pageController.hasClients)
                 if (authController.pageController.page?.toInt() == 1)
                   Positioned(
                     top: size.height * .14,
@@ -108,14 +107,17 @@ class _SplashScreenState extends State<SplashScreen> {
                         decoration: CustomDecoration.inputDecoration(),
                       ),
                     ),
-                  ),
+                  ),*/
+              // Sync Button
               if (authController.pageController.hasClients)
                 if (authController.pageController.page?.round() == 0)
                   Positioned(
                     bottom: 20,
                     left: 20,
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () async {
+                        await authController.syncData();
+                      },
                       child: const CustomImage(
                         path: Assets.imagesSyncBlue,
                         height: 75,
@@ -123,8 +125,9 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                   ),
+              // Back Button
               if (authController.pageController.hasClients)
-                if (authController.pageController.page?.round() != 0)
+                if (authController.pageController.page!.round() < 6 && authController.pageController.page!.round() > 0)
                   Positioned(
                     bottom: 20,
                     left: 20,
@@ -143,24 +146,40 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                     ),
                   ),
-              Positioned(
-                bottom: 20,
-                right: 20,
-                child: GestureDetector(
-                  onTap: () async {
-                    if (authController.pageController.page! < images.length) {
-                      await authController.pageController
-                          .animateToPage((authController.pageController.page! + 1).round(), duration: const Duration(milliseconds: 50), curve: Curves.ease);
-                      setState(() {});
-                    }
-                  },
-                  child: const CustomImage(
-                    path: Assets.imagesForwardBlue,
-                    height: 75,
-                    width: 75,
+              // Forward Button
+              if (authController.pageController.hasClients)
+                if (authController.pageController.page?.round() != authController.images.length - 1)
+                  Positioned(
+                    bottom: 20,
+                    right: 20,
+                    child: GestureDetector(
+                      onTap: () async {
+                        authController.forwardButton();
+                      },
+                      child: const CustomImage(
+                        path: Assets.imagesForwardBlue,
+                        height: 75,
+                        width: 75,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+              // Home Button
+              if (authController.pageController.hasClients)
+                if (authController.pageController.page!.round() > 0)
+                  Positioned(
+                    top: 20,
+                    right: 20,
+                    child: GestureDetector(
+                      onTap: () async {
+                        authController.resetForm();
+                      },
+                      child: CustomImage(
+                        path: (authController.pageController.page!.round() < authController.images.length - 1) ? Assets.imagesHomeBrown : Assets.imagesHomeBlue,
+                        height: 75,
+                        width: 75,
+                      ),
+                    ),
+                  ),
             ],
           ),
         );
@@ -186,11 +205,11 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 0),
       child: InkWell(
         onTap: onTap,
         child: Ink(
-          color: color,
+          color: /*Colors.blue.withOpacity(.5) ??*/ color,
           height: height,
           width: width,
         ),
@@ -225,7 +244,7 @@ class QuestionOne extends StatelessWidget {
       }
 
       return Positioned(
-        top: size.height * .265,
+        top: size.height * .278,
         // left: size.width * .4,
         width: size.width,
         child: Material(
@@ -234,41 +253,57 @@ class QuestionOne extends StatelessWidget {
           child: Column(
             children: [
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .2,
                 color: getColorIfSelected(1),
                 onTap: () {
                   authController.questionOneAnswer['selected'] = 1;
+                  authController.questionOneAnswer['string'] = '1990';
+
                   authController.update();
                 },
               ),
+              const SizedBox(height: 13),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .2,
                 color: getColorIfSelected(2),
                 onTap: () {
                   authController.questionOneAnswer['selected'] = 2;
+                  authController.questionOneAnswer['string'] = '1998';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 15),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .2,
                 color: getColorIfSelected(3),
                 onTap: () {
                   authController.questionOneAnswer['selected'] = 3;
+                  authController.questionOneAnswer['string'] = '1999';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 14),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .2,
                 color: getColorIfSelected(4),
                 onTap: () {
                   authController.questionOneAnswer['selected'] = 4;
+                  authController.questionOneAnswer['string'] = '2000';
+
                   authController.update();
                 },
               ),
+              if (isSelected()) const SizedBox(height: 70),
+              if (isSelected())
+                const CustomImage(
+                  path: Assets.images4,
+                  // width: size.width * .7,
+                  height: 40,
+                ),
             ],
           ),
         ),
@@ -303,7 +338,7 @@ class QuestionTwo extends StatelessWidget {
       }
 
       return Positioned(
-        top: size.height * .265,
+        top: size.height * .278,
         // left: size.width * .4,
         width: size.width,
         child: Material(
@@ -312,41 +347,55 @@ class QuestionTwo extends StatelessWidget {
           child: Column(
             children: [
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(1),
                 onTap: () {
                   authController.questionTwoAnswer['selected'] = 1;
+                  authController.questionTwoAnswer['string'] = 'Reservoir matrix system';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 13),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(2),
                 onTap: () {
                   authController.questionTwoAnswer['selected'] = 2;
+                  authController.questionTwoAnswer['string'] = 'Nano crystalline technology';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 15),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(3),
                 onTap: () {
                   authController.questionTwoAnswer['selected'] = 3;
+                  authController.questionTwoAnswer['string'] = 'Easy release technology';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 14),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(4),
                 onTap: () {
                   authController.questionTwoAnswer['selected'] = 4;
+                  authController.questionTwoAnswer['string'] = 'Micro encapsulation technology';
                   authController.update();
                 },
               ),
+              if (isSelected()) const SizedBox(height: 70),
+              if (isSelected())
+                const CustomImage(
+                  path: Assets.images6,
+                  // width: size.width * .7,
+                  height: 40,
+                ),
             ],
           ),
         ),
@@ -381,7 +430,7 @@ class QuestionThree extends StatelessWidget {
       }
 
       return Positioned(
-        top: size.height * .265,
+        top: size.height * .278,
         // left: size.width * .4,
         width: size.width,
         child: Material(
@@ -390,41 +439,56 @@ class QuestionThree extends StatelessWidget {
           child: Column(
             children: [
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(1),
                 onTap: () {
                   authController.questionThreeAnswer['selected'] = 1;
+                  authController.questionThreeAnswer['string'] = 'Diluent in prefilled syringe';
+
                   authController.update();
                 },
               ),
+              const SizedBox(height: 13),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(2),
                 onTap: () {
                   authController.questionThreeAnswer['selected'] = 2;
+                  authController.questionThreeAnswer['string'] = 'Tourniquet belt';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 15),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(3),
                 onTap: () {
                   authController.questionThreeAnswer['selected'] = 3;
+                  authController.questionThreeAnswer['string'] = 'Gloves';
                   authController.update();
                 },
               ),
+              const SizedBox(height: 14),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .55,
                 color: getColorIfSelected(4),
                 onTap: () {
                   authController.questionThreeAnswer['selected'] = 4;
+                  authController.questionThreeAnswer['string'] = 'Iniection plaster';
                   authController.update();
                 },
               ),
+              if (isSelected()) const SizedBox(height: 70),
+              if (isSelected())
+                const CustomImage(
+                  path: Assets.images8,
+                  // width: size.width * .7,
+                  height: 40,
+                ),
             ],
           ),
         ),
@@ -460,7 +524,7 @@ class QuestionFour extends StatelessWidget {
       }
 
       return Positioned(
-        top: size.height * .265,
+        top: size.height * .278,
         // left: size.width * .4,
         width: size.width,
         child: Material(
@@ -469,41 +533,59 @@ class QuestionFour extends StatelessWidget {
           child: Column(
             children: [
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .9,
                 color: getColorIfSelected(1),
                 onTap: () {
                   authController.questionFourAnswer['selected'] = 1;
+                  authController.questionFourAnswer['string'] = 'Manufacturing in CGMP conditions';
+
                   authController.update();
                 },
               ),
+              const SizedBox(height: 13),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .9,
                 color: getColorIfSelected(2),
                 onTap: () {
                   authController.questionFourAnswer['selected'] = 2;
+                  authController.questionFourAnswer['string'] = 'Technical expertise to produce active peptide polymerin';
+
                   authController.update();
                 },
               ),
+              const SizedBox(height: 15),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .9,
                 color: getColorIfSelected(3),
                 onTap: () {
                   authController.questionFourAnswer['selected'] = 3;
+                  authController.questionFourAnswer['string'] = 'In-house production of raw materials';
+
                   authController.update();
                 },
               ),
+              const SizedBox(height: 14),
               OptionButton(
-                height: size.height * .08,
+                height: size.height * .075,
                 width: size.width * .9,
                 color: getColorIfSelected(4),
                 onTap: () {
                   authController.questionFourAnswer['selected'] = 4;
+                  authController.questionFourAnswer['string'] = 'Every batch tested for pre-clinical efficacy';
+
                   authController.update();
                 },
               ),
+              if (isSelected()) const SizedBox(height: 70),
+              if (isSelected())
+                const CustomImage(
+                  path: Assets.images10,
+                  // width: size.width * .7,
+                  height: 40,
+                ),
             ],
           ),
         ),

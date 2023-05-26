@@ -2,6 +2,8 @@
 class Assets {
   Assets._();
 
+  static const String assetsFontsAgencyGothicCT = 'assets/fonts/AgencyGothicCT.ttf';
+  static const String fontsAgencyGothicCT = 'assets/fonts/AgencyGothicCT.ttf';
   static const String images1 = 'assets/images/1.png';
   static const String images10 = 'assets/images/10.png';
   static const String images11 = 'assets/images/11.png';
@@ -15,6 +17,7 @@ class Assets {
   static const String images8 = 'assets/images/8.png';
   static const String images9 = 'assets/images/9.png';
   static const String imagesBackwardBlue = 'assets/images/backward_blue.png';
+  static const String imagesBg = 'assets/images/bg.png';
   static const String imagesExclaim = 'assets/images/exclaim.png';
   static const String imagesForwardBlue = 'assets/images/forward_blue.png';
   static const String imagesHomeBlue = 'assets/images/home_blue.png';

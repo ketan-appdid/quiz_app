@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:get/get_connect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../services/constants.dart';
@@ -10,6 +11,8 @@ class AuthRepo {
   final ApiClient apiClient;
 
   AuthRepo({required this.sharedPreferences, required this.apiClient});
+
+  Future<Response> submitDa(FormData form) async => await apiClient.postData(AppConstants.submitDa, form);
 
   /// Methods to deal with Local Data ///
   Future<bool> saveUserToken(String token) async {

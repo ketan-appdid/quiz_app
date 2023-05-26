@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'services/init.dart';
 import 'services/theme.dart';
@@ -39,6 +40,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
   }
 
   @override
@@ -51,6 +53,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         }
       },
       child: MaterialApp(
+        title: "Lupride Quiz App",
         navigatorKey: navigatorKey,
         themeMode: ThemeMode.light,
         theme: CustomTheme.light,

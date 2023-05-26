@@ -16,7 +16,7 @@ class CustomDecoration {
     Widget? suffix,
     bool floating = false,
     Color borderColor = Colors.transparent,
-    Color bgColor = Colors.transparent,
+    Color bgColor = Colors.white,
     double borderRadius = 0.0,
     EdgeInsetsGeometry contentPadding = const EdgeInsets.fromLTRB(20, 10, 30, 13),
   }) {
