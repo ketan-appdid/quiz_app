@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/state_manager.dart';
 
 import '../../../controllers/auth_controller.dart';
@@ -19,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer.run(() {
+    Timer.run(() async {
+      await SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
       Future.delayed(const Duration(seconds: 2), () {
         setState(() {});
       });
@@ -167,16 +169,16 @@ class _SplashScreenState extends State<SplashScreen> {
               if (authController.pageController.hasClients)
                 if (authController.pageController.page!.round() > 0)
                   Positioned(
-                    top: 20,
-                    right: 20,
+                    top: 40,
+                    right: 30,
                     child: GestureDetector(
                       onTap: () async {
                         authController.resetForm();
                       },
                       child: CustomImage(
                         path: (authController.pageController.page!.round() < authController.images.length - 1) ? Assets.imagesHomeBrown : Assets.imagesHomeBlue,
-                        height: 75,
-                        width: 75,
+                        height: 60,
+                        width: 60,
                       ),
                     ),
                   ),
