@@ -3,6 +3,8 @@ class Assets {
   Assets._();
 
   static const String assetsFontsAgencyGothicCT = 'assets/fonts/AgencyGothicCT.ttf';
+  static const String audiosCorrectSelection = 'assets/audios/correct_selection.mp3';
+  static const String audiosInvalidSelection = 'assets/audios/invalid_selection.mp3';
   static const String fontsAgencyGothicCT = 'assets/fonts/AgencyGothicCT.ttf';
   static const String images1 = 'assets/images/1.png';
   static const String images10 = 'assets/images/10.png';

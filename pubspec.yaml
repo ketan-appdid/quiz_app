@@ -26,6 +26,7 @@ dependencies:
   shimmer: ^2.0.0
   custom_refresh_indicator: ^2.0.1
   connectivity_plus: ^4.0.1
+  assets_audio_player: ^3.0.6
 
 dev_dependencies:
   flutter_test:
@@ -45,3 +46,4 @@ flutter:
     - assets/lotties/
     - assets/svgs/
     - assets/fonts/AgencyGothicCT.ttf
+    - assets/audios/

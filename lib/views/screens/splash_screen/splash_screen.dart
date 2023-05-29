@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/state_manager.dart';
@@ -220,8 +221,26 @@ class OptionButton extends StatelessWidget {
   }
 }
 
-class QuestionOne extends StatelessWidget {
+class QuestionOne extends StatefulWidget {
   const QuestionOne({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionOne> createState() => _QuestionOneState();
+}
+
+class _QuestionOneState extends State<QuestionOne> {
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  bool _isInit = true;
+
+  // AssetsAudioPlayer.newPlayer().open(
+  // Audio("assets/audios/correct_selection.mp3"),
+  // showNotification: false,
+  // );
+
+  // AssetsAudioPlayer.newPlayer().open(
+  // Audio("assets/audios/invalid_selection.mp3"),
+  // showNotification: false,
+  // );
 
   @override
   Widget build(BuildContext context) {
@@ -229,6 +248,22 @@ class QuestionOne extends StatelessWidget {
     return GetBuilder<AuthController>(builder: (authController) {
       bool isSelected() {
         return authController.questionOneAnswer['selected'] != null;
+      }
+
+      if (!_isInit) {
+        if (authController.questionOneAnswer['selected'] == authController.questionOneAnswer['answer']) {
+          AssetsAudioPlayer.newPlayer().open(
+            Audio("assets/audios/correct_selection.mp3"),
+            showNotification: false,
+          );
+        } else {
+          AssetsAudioPlayer.newPlayer().open(
+            Audio("assets/audios/invalid_selection.mp3"),
+            showNotification: false,
+          );
+        }
+      } else {
+        _isInit = false;
       }
 
       Color getColorIfSelected(int index) {
@@ -314,8 +349,16 @@ class QuestionOne extends StatelessWidget {
   }
 }
 
-class QuestionTwo extends StatelessWidget {
+class QuestionTwo extends StatefulWidget {
   const QuestionTwo({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionTwo> createState() => _QuestionTwoState();
+}
+
+class _QuestionTwoState extends State<QuestionTwo> {
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  bool _isInit = true;
 
   @override
   Widget build(BuildContext context) {
@@ -323,6 +366,22 @@ class QuestionTwo extends StatelessWidget {
     return GetBuilder<AuthController>(builder: (authController) {
       bool isSelected() {
         return authController.questionTwoAnswer['selected'] != null;
+      }
+
+      if (!_isInit) {
+        if (authController.questionTwoAnswer['selected'] == authController.questionTwoAnswer['answer']) {
+          AssetsAudioPlayer.newPlayer().open(
+            Audio("assets/audios/correct_selection.mp3"),
+            showNotification: false,
+          );
+        } else {
+          AssetsAudioPlayer.newPlayer().open(
+            Audio("assets/audios/invalid_selection.mp3"),
+            showNotification: false,
+          );
+        }
+      } else {
+        _isInit = false;
       }
 
       Color getColorIfSelected(int index) {
@@ -406,8 +465,16 @@ class QuestionTwo extends StatelessWidget {
   }
 }
 
-class QuestionThree extends StatelessWidget {
+class QuestionThree extends StatefulWidget {
   const QuestionThree({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionThree> createState() => _QuestionThreeState();
+}
+
+class _QuestionThreeState extends State<QuestionThree> {
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  bool _isInit = true;
 
   @override
   Widget build(BuildContext context) {
@@ -415,6 +482,22 @@ class QuestionThree extends StatelessWidget {
     return GetBuilder<AuthController>(builder: (authController) {
       bool isSelected() {
         return authController.questionThreeAnswer['selected'] != null;
+      }
+
+      if (!_isInit) {
+        if (authController.questionThreeAnswer['selected'] == authController.questionThreeAnswer['answer']) {
+          AssetsAudioPlayer.newPlayer().open(
+            Audio("assets/audios/correct_selection.mp3"),
+            showNotification: false,
+          );
+        } else {
+          AssetsAudioPlayer.newPlayer().open(
+            Audio("assets/audios/invalid_selection.mp3"),
+            showNotification: false,
+          );
+        }
+      } else {
+        _isInit = false;
       }
 
       Color getColorIfSelected(int index) {
@@ -499,8 +582,16 @@ class QuestionThree extends StatelessWidget {
   }
 }
 
-class QuestionFour extends StatelessWidget {
+class QuestionFour extends StatefulWidget {
   const QuestionFour({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionFour> createState() => _QuestionFourState();
+}
+
+class _QuestionFourState extends State<QuestionFour> {
+  final assetsAudioPlayer = AssetsAudioPlayer();
+  bool _isInit = true;
 
   @override
   Widget build(BuildContext context) {
@@ -508,6 +599,15 @@ class QuestionFour extends StatelessWidget {
     return GetBuilder<AuthController>(builder: (authController) {
       bool isSelected() {
         return authController.questionFourAnswer['selected'] != null;
+      }
+
+      if (!_isInit) {
+        AssetsAudioPlayer.newPlayer().open(
+          Audio("assets/audios/correct_selection.mp3"),
+          showNotification: false,
+        );
+      } else {
+        _isInit = false;
       }
 
       Color getColorIfSelected(int index) {
