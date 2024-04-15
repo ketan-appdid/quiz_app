@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../services/extensions.dart';
 import '../common_button.dart';
@@ -28,7 +27,7 @@ class RequestPermissionDialog extends StatelessWidget {
             const SizedBox(height: 14.0),
             Text(
               'Requires access to your $permission to perform this action.',
-              style: GoogleFonts.montserrat(
+              style: const TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w400,
               ),
@@ -37,7 +36,7 @@ class RequestPermissionDialog extends StatelessWidget {
             if (extraMessage.isValid)
               Text(
                 extraMessage!,
-                style: GoogleFonts.montserrat(
+                style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w400,
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 
 enum ButtonType { primary, secondary, tertiary }
 
@@ -82,7 +82,7 @@ class CustomButton extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     child: Text(
                       title!,
-                      style: GoogleFonts.montserrat(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 16.0,
                       ),
@@ -123,7 +123,7 @@ class CustomButton extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     child: Text(
                       title!,
-                      style: GoogleFonts.montserrat(
+                      style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 16.0,
                       ),

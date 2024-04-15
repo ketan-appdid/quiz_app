@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+// import 'package:google_fonts/google_fonts.dart';
 
 import '../views/base/custom_image.dart';
 
@@ -45,7 +46,7 @@ class CustomDecoration {
         borderRadius: BorderRadius.circular(borderRadius),
         borderSide: const BorderSide(color: Colors.redAccent, width: 0.4),
       ),
-      errorStyle: GoogleFonts.montserrat(
+      errorStyle: TextStyle(
         fontSize: 10,
         fontWeight: FontWeight.w400,
         letterSpacing: 0.5,
@@ -78,7 +79,7 @@ class CustomDecoration {
                       children: [
                         Text(
                           prefixText,
-                          style: GoogleFonts.montserrat(
+                          style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                             color: textSecondary,
@@ -96,7 +97,7 @@ class CustomDecoration {
       label: label != null
           ? Text(
               label,
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: textPrimary,
@@ -105,7 +106,7 @@ class CustomDecoration {
           : null,
       hintText: hint ?? label,
       hintStyle: hintStyle ??
-          GoogleFonts.montserrat(
+          TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
             color: textSecondary,
@@ -163,7 +164,7 @@ class CustomDecoration {
           ? Text(
               label,
               // textAlign: TextAlign.center,
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: textPrimary,
@@ -172,7 +173,7 @@ class CustomDecoration {
           : null,
       hintText: label,
       hintStyle: hintStyle ??
-          GoogleFonts.montserrat(
+          TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
             color: textSecondary,

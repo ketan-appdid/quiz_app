@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+// import 'package:google_fonts/google_fonts.dart';
 
 import '../common_button.dart';
 import '../custom_image.dart';
@@ -36,10 +37,10 @@ class LogoutDialog extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             "Are you sure you want to logout!",
             textAlign: TextAlign.center,
-            style: GoogleFonts.roboto(
+            style: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.w400,
             ),

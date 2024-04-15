@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 Color primaryColor = const Color(0xFF941f37);
 Color secondaryColor = const Color(0xFF941f37).withOpacity(.47);
@@ -68,21 +67,21 @@ class CustomTheme {
       ),
     ),
     typography: Typography.material2021(),
-    textTheme: TextTheme(
-      labelLarge: GoogleFonts.montserrat(
+    textTheme: const TextTheme(
+      labelLarge: TextStyle(
         fontWeight: FontWeight.w400,
         color: textSecondary,
         fontSize: 14.0,
       ),
-      displayLarge: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      displayMedium: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      displaySmall: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      titleLarge: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      titleMedium: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      titleSmall: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      bodyLarge: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      bodyMedium: GoogleFonts.openSans(fontWeight: FontWeight.w400),
-      bodySmall: GoogleFonts.openSans(fontWeight: FontWeight.w400),
+      displayLarge: TextStyle(fontWeight: FontWeight.w400),
+      displayMedium: TextStyle(fontWeight: FontWeight.w400),
+      displaySmall: TextStyle(fontWeight: FontWeight.w400),
+      titleLarge: TextStyle(fontWeight: FontWeight.w400),
+      titleMedium: TextStyle(fontWeight: FontWeight.w400),
+      titleSmall: TextStyle(fontWeight: FontWeight.w400),
+      bodyLarge: TextStyle(fontWeight: FontWeight.w400),
+      bodyMedium: TextStyle(fontWeight: FontWeight.w400),
+      bodySmall: TextStyle(fontWeight: FontWeight.w400),
     ),
   );
 }
